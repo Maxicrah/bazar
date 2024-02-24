@@ -3,6 +3,7 @@ package com.maxi.model;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -30,7 +31,7 @@ public class Venta {
 	private LocalDate fecha_venta;
 	private Double total;
 	//@JsonManagedReference
-	@JsonIgnore
+	//@JsonIgnore
 	@ManyToMany
 	@JoinTable(
 	        name = "venta_producto",
@@ -38,6 +39,7 @@ public class Venta {
 	        inverseJoinColumns = @JoinColumn(name = "producto_id")
 	    )
 	//@JoinColumn(name="codigo_producto")
+	@JsonBackReference
 	private List<Producto> listaProductos;
 	@OneToOne
 	@JoinColumn(name="id_cliente")

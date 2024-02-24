@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.maxi.dao.IVentaDAO;
+import com.maxi.dto.VentaDTO;
 import com.maxi.model.Producto;
 import com.maxi.model.Venta;
 
@@ -22,7 +23,7 @@ public class VentaService implements IVentaService{
 	@Override
 	public Venta saveVenta(Venta venta) {
 		
-	Venta vent =ventaDAO.save(venta);
+	Venta vent = ventaDAO.save(venta);
 	
 	return vent;	
 	
@@ -93,6 +94,34 @@ public class VentaService implements IVentaService{
 		}
 		 System.out.println("Número de ventas para la fecha " + fecha_venta + ": " + numeroDeVentas);
 		 System.out.println("Total de ventas para la fecha " + fecha_venta + ": " + totalDeVentas);
+	}
+
+	@Override
+	public VentaDTO obtenerVentaMasAlta() {
+		
+		List<Venta> listaDeVentas = this.findVentas();
+		
+		VentaDTO venDTO = new VentaDTO();
+		
+		Double ventaAlta = 0.0;
+		
+		
+		for(Venta ven : listaDeVentas) {
+			
+			if(ven.getTotal() > ventaAlta && ven.getListaProductos() != null) {
+				
+				venDTO.setCodigo_venta(ven.getCodigo_venta());
+				venDTO.setTotal(ven.getTotal());
+				venDTO.setCantidad_productos(ven.getListaProductos().size());
+				venDTO.setNombreCliente(ven.getUnCliente().getNombre());
+				venDTO.setApellidoCliente(ven.getUnCliente().getApellido());
+				
+				ventaAlta = ven.getTotal();
+			}
+			
+		}
+		
+		return venDTO;
 	}
 
 }

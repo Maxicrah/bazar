@@ -1,5 +1,9 @@
 package com.maxi.dto;
 
+import java.util.List;
+
+import com.maxi.model.Producto;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

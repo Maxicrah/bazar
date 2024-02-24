@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.maxi.dto.VentaDTO;
 import com.maxi.model.Producto;
 import com.maxi.model.Venta;
 import com.maxi.service.VentaService;
@@ -72,6 +74,13 @@ public class VentaController {
 	public void totalVentas(@PathVariable LocalDate fecha_venta) {
 		
 		ventaServ.totalVentas(fecha_venta);
+	}
+	
+	@GetMapping("mayor_venta")
+	public ResponseEntity<VentaDTO> ventaMasAlta() {
+		VentaDTO ventaMasAlta = ventaServ.obtenerVentaMasAlta();
+		return ResponseEntity.ok(ventaMasAlta);
+		
 	}
 	
 	

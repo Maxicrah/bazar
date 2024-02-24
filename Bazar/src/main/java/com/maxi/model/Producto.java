@@ -28,9 +28,10 @@ public class Producto {
 	private Double costo;
 	private Double cantidad_disponible;
 	//@JoinColumn(name="codigo_venta")
-	@JsonIgnore
+	//@JsonIgnore
     //@JsonBackReference // Evita la recursión infinita al serializar
 	@ManyToMany(mappedBy = "listaProductos")
+	@JsonBackReference
 	private List<Venta> ventas;
 	
 }
